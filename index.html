@@ -245,32 +245,37 @@
         color = "#f8d7da";
       }
 
-      const next = index + 1;
-      const btn = document.createElement('button');
-      btn.textContent = next < questionsByTopic.length ? "Next" : "Finish";
-      btn.className = "nav-btn";
-      btn.onclick = () => {
-        if (next < questionsByTopic.length) {
-          renderPage(next);
-        } else {
-          document.getElementById('app').innerHTML = `
-            <div class="page-section active" style="text-align:center; background-color: ${color}; border-radius: 10px; padding: 2rem;">
-              <h2>${message}</h2>
-              <p>You got <strong>${correct}</strong> right and <strong>${incorrect}</strong> wrong (${percent}%)</p>
-              <img src="congrats.gif" alt="Congratulations" style="max-width: 100%; height: auto;" />
-              <footer style="
-                margin-top: 200px;
-                padding-bottom: 2rem;
-                color: white;
-                font-weight: bold;
-              ">
-                This project was developed by Ricardo Lacerda Pereira · 2025 · English Recovery
-              </footer>
-            </div>
-          `;
-        }
-      };
-      document.querySelector('.page-section').appendChild(btn);
+const next = index + 1;
+const btn = document.createElement('button');
+btn.textContent = next < questionsByTopic.length ? "Next" : "Finish";
+btn.className = "nav-btn";
+btn.onclick = () => {
+  if (next < questionsByTopic.length) {
+    renderPage(next);
+  } else {
+    document.getElementById('app').innerHTML = `
+      <div class="page-section active" style="text-align:center; background-color: ${color}; border-radius: 10px; padding: 2rem;">
+        <h2>${message}</h2>
+        <p>You got <strong>${correct}</strong> right and <strong>${incorrect}</strong> wrong (${percent}%)</p>
+        <img src="congrats.gif" alt="Congratulations" style="max-width: 100%; height: auto;" />
+        <footer style="
+          margin-top: 200px;
+          padding-bottom: 2rem;
+          color: white;
+          font-weight: bold;
+        ">
+          This project was developed by Ricardo Lacerda Pereira · 2025 · English Recovery
+        </footer>
+      </div>
+    `;
+  }
+};
+
+const pageSection = document.querySelector('.page-section');
+const existingBtn = pageSection.querySelector('.nav-btn:last-of-type');
+if (existingBtn) existingBtn.remove();
+pageSection.appendChild(btn);
+
     }
 
     renderPage(0);
