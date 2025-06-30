@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="English interactive quiz: practice grammar, WH questions, JS vocabulary and reading.">
+  <meta name="author" content="Ricardo Lacerda Pereira">
+  <title>English Interactive Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #007bff, #e0f0ff);
+      color: #333;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: auto;
+      padding: 1rem;
+    }
+
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .question-card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .question {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .question input {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    .correct {
+      background-color: #d4edda;
+    }
+
+    .incorrect {
+      background-color: #f8d7da;
+    }
+
+    #submit-btn, #retry-btn {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 1rem 0;
+    }
+
+    #retry-btn {
+      background-color: #28a745;
+    }
+
+    #result {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 10px;
+    }
+
+    .topic-title {
+      background-color: #0056b3;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      margin-top: 2rem;
+      font-weight: bold;
+    }
+
+    .footer {
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      border-top: 4px solid red;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      .question {
+        font-size: 1rem;
+      }
+      input {
+        font-size: 1rem;
+      }
+    }
+
+    button[aria-label="Scroll to top"]:hover {
+      background: linear-gradient(to bottom, #e6f0ff, #ffffff);
+      color: #0056b3;
+      transform: scale(1.1);
+      border-color: #007bff;
+    }
+  </style>
+</head>
+<body>
+  <img src="top.png" alt="English Quiz Banner" title="English Quiz" 
+     style="display: block; margin: auto; max-width: 100%; height: auto; max-height: 200px;" />
+
+  <div class="container">
+    <form id="quiz-form"></form>
+    <button id="submit-btn" aria-label="Check your answers">Check Answers</button>
+    <div id="result"></div>
+    <button id="retry-btn" aria-label="Try the quiz again" style="display:none;">Try Again</button>
+  </div>
+
+  <!-- Botão flutuante "Topo" com destaque -->
+  <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Scroll to top" style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(to bottom, #ffffff, #cce0ff);
+    color: #007bff;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+  ">↑</button>
+
+  <footer class="footer">
+    <p>© 2025 English Recovery Project. All rights reserved. Developed by Ricardo Lacerda Pereira.</p>
+  </footer>
+
+  <script>
+    const questionsByTopic = [
+      {
+        topic: "Present Simple",
+        questions: [
+          { q: "Complete: I ___ (go) to school every day.", a: "go" },
+          { q: "Negative: She ___ (not like) pizza.", a: "does not like" },
+          { q: "Question form: ___ you speak English?", a: "do" },
+          { q: "Complete: He ___ (play) soccer on Sundays.", a: "plays" },
+          { q: "Complete: We ___ (study) JavaScript.", a: "study" },
+          { q: "Complete: She ___ (not work) on weekends.", a: "does not work" }
+        ]
+      },
+      {
+        topic: "Future Simple",
+        questions: [
+          { q: "Complete: I will ___ (call) you later.", a: "call" },
+          { q: "Complete: They will ___ (visit) us next week.", a: "visit" },
+          { q: "Question form: ___ you help me tomorrow?", a: "will" },
+          { q: "Negative: He will not ___ (come) today.", a: "come" },
+          { q: "Complete: We will ___ (learn) more tomorrow.", a: "learn" },
+          { q: "WH question: Where will you be?", a: "at home" }
+        ]
+      },
+      {
+        topic: "WH Questions",
+        questions: [
+          { q: "Complete: ___ is your favorite language?", a: "what" },
+          { q: "Complete: ___ do you debug your code?", a: "how" },
+          { q: "Complete: ___ will she travel?", a: "why" },
+          { q: "Complete: ___ is your teacher?", a: "who" },
+          { q: "Complete: ___ do you study English?", a: "when" },
+          { q: "Complete: ___ is the console located in the browser?", a: "where" }
+        ]
+      },
+      {
+        topic: "Technical Vocabulary – JavaScript",
+        questions: [
+          { q: "What does 'console.log' do in JavaScript?", a: "prints a message" },
+          { q: "Where do you usually write your JavaScript code?", a: "script tag" },
+          { q: "Why do we use functions in JavaScript?", a: "reuse code" },
+          { q: "How do you declare a variable in JavaScript?", a: "let" },
+          { q: "What keyword stops a loop in JavaScript?", a: "break" },
+          { q: "What does HTML stand for?", a: "hypertext markup language" }
+        ]
+      },
+      {
+        topic: "Leitura e Interpretação",
+        questions: [
+          { q: "Is JavaScript the same as Java? (yes/no)", a: "no" },
+          { q: "He ___ (write) JavaScript code now.", a: "is writing" },
+          { q: "This function ___ (return) a value.", a: "returns" },
+          { q: "How will you solve the problem?", a: "using code" },
+          { q: "Why will she travel?", a: "vacation" },
+          { q: "Who is responsible for debugging?", a: "developer" }
+        ]
+      }
+    ];
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    function loadQuiz() {
+      const form = document.getElementById("quiz-form");
+      form.innerHTML = "";
+      questionsByTopic.forEach(section => {
+        const title = document.createElement("div");
+        title.className = "topic-title";
+        title.textContent = section.topic;
+        form.appendChild(title);
+        const questions = [...section.questions];
+        shuffle(questions);
+        questions.forEach((item, index) => {
+          const card = document.createElement("div");
+          card.className = "question-card";
+          card.innerHTML = `
+            <div class="question">${item.q}</div>
+            <input type="text" data-answer="${item.a.toLowerCase()}" />
+          `;
+          form.appendChild(card);
+        });
+      });
+    }
+
+    function checkAnswers() {
+      let correct = 0;
+      const inputs = document.querySelectorAll("input");
+      inputs.forEach(input => {
+        const userAnswer = input.value.trim().toLowerCase();
+        const correctAnswer = input.dataset.answer;
+        if (userAnswer === correctAnswer) {
+          input.classList.add("correct");
+          input.classList.remove("incorrect");
+          correct++;
+        } else {
+          input.classList.add("incorrect");
+          input.classList.remove("correct");
+        }
+        input.disabled = true;
+      });
+
+      const result = document.getElementById("result");
+      const percent = Math.round((correct / inputs.length) * 100);
+      if (percent >= 80) {
+        result.innerHTML = `🎉 Excellent! You got ${correct} out of ${inputs.length} (${percent}%)`;
+        result.style.backgroundColor = "#d4edda";
+      } else if (percent >= 50) {
+        result.innerHTML = `😊 Good job! You got ${correct} out of ${inputs.length} (${percent}%)`;
+        result.style.backgroundColor = "#fff3cd";
+      } else {
+        result.innerHTML = `😟 Keep practicing! You got ${correct} out of ${inputs.length} (${percent}%)`;
+        result.style.backgroundColor = "#f8d7da";
+      }
+
+      document.getElementById("submit-btn").style.display = "none";
+      document.getElementById("retry-btn").style.display = "block";
+    }
+
+    document.getElementById("submit-btn").addEventListener("click", function (e) {
+      e.preventDefault();
+      checkAnswers();
+    });
+
+    document.getElementById("retry-btn").addEventListener("click", function () {
+      document.getElementById("submit-btn").style.display = "block";
+      document.getElementById("retry-btn").style.display = "none";
+      document.getElementById("result").innerHTML = "";
+      document.getElementById("result").style.backgroundColor = "transparent";
+      loadQuiz();
+    });
+
+    loadQuiz();
+  </script>
+</body>
+</html>
