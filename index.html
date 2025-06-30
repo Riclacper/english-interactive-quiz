@@ -214,13 +214,36 @@
 
     function checkAnswers(index) {
       const inputs = document.querySelectorAll("input");
+      let correct = 0;
       inputs.forEach(input => {
         const user = input.value.trim().toLowerCase();
         const ans = input.dataset.answer;
-        if (user === ans) input.classList.add("correct");
-        else input.classList.add("incorrect");
+        if (user === ans) {
+          input.classList.add("correct");
+          correct++;
+        } else {
+          input.classList.add("incorrect");
+        }
         input.disabled = true;
       });
+
+      const total = inputs.length;
+      const incorrect = total - correct;
+      const percent = Math.round((correct / total) * 100);
+
+      let message = "";
+      let color = "";
+
+      if (percent >= 80) {
+        message = "🎉 Excellent!";
+        color = "#d4edda";
+      } else if (percent >= 50) {
+        message = "😊 Good job!";
+        color = "#fff3cd";
+      } else {
+        message = "😟 Keep practicing!";
+        color = "#f8d7da";
+      }
 
       const next = index + 1;
       const btn = document.createElement('button');
@@ -231,7 +254,9 @@
           renderPage(next);
         } else {
           document.getElementById('app').innerHTML = `
-            <div class="page-section active" style="text-align:center;">
+            <div class="page-section active" style="text-align:center; background-color: ${color}; border-radius: 10px; padding: 2rem;">
+              <h2>${message}</h2>
+              <p>You got <strong>${correct}</strong> right and <strong>${incorrect}</strong> wrong (${percent}%)</p>
               <img src="congrats.gif" alt="Congratulations" style="max-width: 100%; height: auto;" />
               <footer style="
                 margin-top: 200px;
