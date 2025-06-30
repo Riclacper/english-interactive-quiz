@@ -34,7 +34,7 @@ Each section contains 6 randomized questions with instant feedback and scoring.
 ### 🖥️ Local
 
 1. Download or clone this repository
-2. Open `atividade.html` in your browser
+2. Open `index.html` in your browser
 
 ```bash
 git clone https://github.com/SEU_USUARIO/english-interactive-quiz.git
