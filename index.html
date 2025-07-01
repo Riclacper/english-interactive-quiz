@@ -146,7 +146,8 @@
           { q: "Question form: ___ you speak English?", a: "do" },
           { q: "Complete: He ___ (play) soccer on Sundays.", a: "plays" },
           { q: "Complete: We ___ (study) JavaScript.", a: "study" },
-          { q: "Complete: She ___ (not work) on weekends.", a: "does not work" }]
+          { q: "Complete: She ___ (not work) on weekends.", a: "does not work" }
+        ]
       },
       {
         topic: "Future Simple", questions: [
@@ -155,7 +156,8 @@
           { q: "Question form: ___ you help me tomorrow?", a: "will" },
           { q: "Negative: He will not ___ (come) today.", a: "come" },
           { q: "Complete: We will ___ (learn) more tomorrow.", a: "learn" },
-          { q: "WH question: Where will you be?", a: "at home" }]
+          { q: "WH question: Where will you be?", a: "at home" }
+        ]
       },
       {
         topic: "WH Questions", questions: [
@@ -164,7 +166,8 @@
           { q: "Complete: ___ will she travel?", a: "why" },
           { q: "Complete: ___ is your teacher?", a: "who" },
           { q: "Complete: ___ do you study English?", a: "when" },
-          { q: "Complete: ___ is the console located in the browser?", a: "where" }]
+          { q: "Complete: ___ is the console located in the browser?", a: "where" }
+        ]
       },
       {
         topic: "Technical Vocabulary – JavaScript", questions: [
@@ -173,7 +176,8 @@
           { q: "Why do we use functions in JavaScript?", a: "reuse code" },
           { q: "How do you declare a variable in JavaScript?", a: "let" },
           { q: "What keyword stops a loop in JavaScript?", a: "break" },
-          { q: "What does HTML stand for?", a: "hypertext markup language" }]
+          { q: "What does HTML stand for?", a: "hypertext markup language" }
+        ]
       },
       {
         topic: "Leitura e Interpretação", questions: [
@@ -182,7 +186,8 @@
           { q: "This function ___ (return) a value.", a: "returns" },
           { q: "How will you solve the problem?", a: "using code" },
           { q: "Why will she travel?", a: "vacation" },
-          { q: "Who is responsible for debugging?", a: "developer" }]
+          { q: "Who is responsible for debugging?", a: "developer" }
+        ]
       }
     ];
 
@@ -245,37 +250,45 @@
         color = "#f8d7da";
       }
 
-const next = index + 1;
-const btn = document.createElement('button');
-btn.textContent = next < questionsByTopic.length ? "Next" : "Finish";
-btn.className = "nav-btn";
-btn.onclick = () => {
-  if (next < questionsByTopic.length) {
-    renderPage(next);
-  } else {
-    document.getElementById('app').innerHTML = `
-      <div class="page-section active" style="text-align:center; background-color: ${color}; border-radius: 10px; padding: 2rem;">
-        <h2>${message}</h2>
-        <p>You got <strong>${correct}</strong> right and <strong>${incorrect}</strong> wrong (${percent}%)</p>
-        <img src="congrats.gif" alt="Congratulations" style="max-width: 100%; height: auto;" />
-        <footer style="
-          margin-top: 200px;
-          padding-bottom: 2rem;
-          color: white;
-          font-weight: bold;
-        ">
-          This project was developed by Ricardo Lacerda Pereira · 2025 · English Recovery
-        </footer>
-      </div>
-    `;
-  }
-};
+      const next = index + 1;
+      const btn = document.createElement('button');
+      btn.textContent = next < questionsByTopic.length ? "Next" : "Finish";
+      btn.className = "nav-btn";
+      btn.onclick = () => {
+        if (next < questionsByTopic.length) {
+          renderPage(next);
+        } else {
+          document.getElementById('app').innerHTML = `
+            <div class="page-section active" style="text-align:center; background-color: ${color}; border-radius: 10px; padding: 2rem;">
+              <h2>${message}</h2>
+              <p>You got <strong>${correct}</strong> right and <strong>${incorrect}</strong> wrong (${percent}%)</p>
+              <img src="congrats.gif" alt="Congratulations" style="max-width: 100%; height: auto;" />
 
-const pageSection = document.querySelector('.page-section');
-const existingBtn = pageSection.querySelector('.nav-btn:last-of-type');
-if (existingBtn) existingBtn.remove();
-pageSection.appendChild(btn);
+              <button class="nav-btn" onclick="renderPage(0)" style="
+                margin-top: 2rem;
+                max-width: 250px;
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+              ">Restart Quiz</button>
 
+              <footer style="
+                margin-top: 200px;
+                padding-bottom: 2rem;
+                color: white;
+                font-weight: bold;
+              ">
+                This project was developed by Ricardo Lacerda Pereira · 2025 · English Recovery
+              </footer>
+            </div>
+          `;
+        }
+      };
+
+      const pageSection = document.querySelector('.page-section');
+      const existingBtn = pageSection.querySelector('.nav-btn:last-of-type');
+      if (existingBtn) existingBtn.remove();
+      pageSection.appendChild(btn);
     }
 
     renderPage(0);
