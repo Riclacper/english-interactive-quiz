@@ -1,10 +1,10 @@
 # 🎓 English Interactive Quiz
 
-This is an interactive English grammar quiz built as a web activity for semester review. It was developed using only HTML, CSS, and JavaScript — no frameworks — and is fully responsive and user-friendly.
+This is an interactive English grammar quiz built as a semester review activity. It was developed using only **HTML**, **CSS**, and **JavaScript** — no frameworks — and is fully responsive and user-friendly.
 
 ## 📚 Topics Covered
 
-The quiz contains **30 questions**, organized by topics covered during the semester:
+The quiz contains **30 questions**, organized by topics studied during the semester:
 
 - ✅ **Present Simple**
 - ✅ **Future Simple**
@@ -16,24 +16,24 @@ Each section contains 6 randomized questions with instant feedback and scoring.
 
 ## 🧩 Features
 
-- Shuffle questions every time
-- Immediate feedback (green/red input)
-- Final score with dynamic emoji & background (Excellent, Good, Try again)
-- Display of correct/incorrect count and percentage
+- Questions are shuffled every time
+- Immediate input feedback (green for correct, red for incorrect)
+- Final score with performance message (🎉 Excellent!, 😊 Good job!, 😟 Keep practicing!)
+- Displays total correct/incorrect answers and percentage
 - Animated congratulation screen (`congrats.gif`)
-- SPA navigation with per-topic pages
-- Retry button
-- Scroll-to-top floating button
-- Responsive layout with floating image of teacher (`prof.png`)
-- Friendly design with topic tags
+- Single Page Application (SPA) navigation by topic
+- Responsive layout with floating teacher image (`prof.png`)
+- Friendly, accessible design with topic headers
+- Final screen includes footer with project credit
 - Built-in accessibility and SEO metadata
-- Footer with developer credit
+
+> ℹ️ **Note**: The "Retry Quiz" and "Scroll to top" buttons were removed in the SPA version for a cleaner experience.
 
 ## 🚀 How to Use
 
 ### 🔗 Online (Netlify)
 
-> [Click here to open the quiz in your browser](https://your-quiz-site.netlify.app)
+> [Click here to open the quiz in your browser](https://your-netlify-link.netlify.app)
 
 ### 🖥️ Local
 
@@ -41,7 +41,6 @@ Each section contains 6 randomized questions with instant feedback and scoring.
 2. Open `index.html` in your browser
 
 ```bash
-git clone https://github.com/SEU_USUARIO/english-interactive-quiz.git
+git clone https://github.com/YOUR_USERNAME/english-interactive-quiz.git
 cd english-interactive-quiz
-open index.html  # Or just double-click the file
-```
+open index.html  # or double-click it
