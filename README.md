@@ -18,18 +18,22 @@ Each section contains 6 randomized questions with instant feedback and scoring.
 
 - Shuffle questions every time
 - Immediate feedback (green/red input)
-- Final score with visual feedback (color & emoji)
+- Final score with dynamic emoji & background (Excellent, Good, Try again)
+- Display of correct/incorrect count and percentage
+- Animated congratulation screen (`congrats.gif`)
+- SPA navigation with per-topic pages
 - Retry button
 - Scroll-to-top floating button
-- Responsive layout
+- Responsive layout with floating image of teacher (`prof.png`)
 - Friendly design with topic tags
 - Built-in accessibility and SEO metadata
+- Footer with developer credit
 
 ## 🚀 How to Use
 
-### 🔗 Online (GitHub Pages)
+### 🔗 Online (Netlify)
 
-> [Click here to open the quiz in your browser](https://SEU_USUARIO.github.io/english-interactive-quiz)
+> [Click here to open the quiz in your browser](https://your-quiz-site.netlify.app)
 
 ### 🖥️ Local
 
@@ -39,4 +43,5 @@ Each section contains 6 randomized questions with instant feedback and scoring.
 ```bash
 git clone https://github.com/SEU_USUARIO/english-interactive-quiz.git
 cd english-interactive-quiz
-open atividade.html  # Or just double-click the file
+open index.html  # Or just double-click the file
+```
